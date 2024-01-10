@@ -69,3 +69,5 @@ def graf(največja_mreža):
 #IZVAJANJE PROGRAMA    
 največja_mreža= int(input('Vpiši največjo mrežo: '))
 graf(največja_mreža)
+
+ena vrsttica
