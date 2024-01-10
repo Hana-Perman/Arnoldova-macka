@@ -1,0 +1,674 @@
+\documentclass[GmVic, tisk]{gv}
+% \documentclass[fin1, tisk]{fmfdelo}
+% Če pobrišete možnost tisk, bodo povezave obarvane,
+% na začetku pa ne bo praznih strani po naslovu, …
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% METAPODATKI
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% - vaše ime
+\avtor{Ime Priimek}
+
+% - naslov dela v slovenščini
+\naslov{Naslov dela}
+
+% - naslov dela v angleščini
+\title{Angleški prevod slovenskega naslova dela}
+
+% - ime mentorja/mentorice s polnim nazivom:
+%   - doc.~dr.~Ime Priimek
+%   - izr.~prof.~dr.~Ime Priimek
+%   - prof.~dr.~Ime Priimek
+%   za druge variante uporabite ustrezne ukaze
+\mentorica{izr.~prof.~dr.~Ime Priimek}
+\somentor{doc.~dr.~Ime Priimek}
+
+% - leto diplome
+\letnica{2016}
+
+% - povzetek v slovenščini
+%   V povzetku na kratko opišite vsebinske rezultate dela. Sem ne sodi razlaga
+%   organizacije dela, torej v katerem razdelku je kaj, pač pa le opis vsebine.
+\povzetek{V povzetku na kratko opišemo vsebinske rezultate dela. Sem ne sodi
+razlaga organizacije dela -- v katerem poglavju/razdelku je kaj, pač pa le opis
+vsebine.}
+
+% - povzetek v angleščini
+\abstract{Prevod slovenskega povzetka v angleščino.}
+
+% - klasifikacijske oznake, ločene z vejicami
+%   Oznake, ki opisujejo področje dela, so dostopne na strani https://www.ams.org/msc/
+\klasifikacija{74B05, 65N99}
+
+% - ključne besede, ki nastopajo v delu, ločene s \sep
+\kljucnebesede{naravni logaritem\sep nenaravni algoritem}
+
+% - angleški prevod ključnih besed
+\keywords{natural logarithm\sep unnatural algorithm} % angleški prevod ključnih besed
+
+% - angleško-slovenski slovar strokovnih izrazov
+\slovar{
+\geslo{continuous}{zvezen}
+\geslo{uniformly continuous}{enakomerno zvezen}
+\geslo{compact}{kompakten -- metrični prostor je kompakten, če ima v njem vsako zaporedje stekališče; podmnožica evklidskega prostora je kompaktna natanko tedaj, ko je omejena in zaprta  }
+\geslo{glide reflection}{zrcalni zdrs ali zrcalni pomik -- tip ravninske evklidske izometrije, ki je kompozitum zrcaljenja in translacije vzdolž iste premice}
+\geslo{lattice}{mreža}
+\geslo{link}{splet}
+\geslo{partition}{\textbf{$\sim$ of a set} razdelitev množice; \textbf{$\sim$ of a number} razčlenitev števila}
+}
+
+% - ime datoteke z viri (vključno s končnico .bib), če uporabljate BibTeX
+\literatura{literatura.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DODATNE DEFINICIJE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% naložite dodatne pakete, ki jih potrebujete
+\usepackage{algpseudocode}  % za psevdokodo
+\usepackage{algorithm}      % za algoritme
+\floatname{algorithm}{Algoritem}
+\renewcommand{\listalgorithmname}{Kazalo algoritmov}
+
+% deklarirajte vse matematične operatorje, da jih bo LaTeX pravilno stavil
+% \DeclareMathOperator{\conv}{conv}
+% na razpolago so naslednja matematična okolja, ki jih kličemo s parom
+% \begin{imeokolja}[morebitni komentar v oklepaju] ... \end{imeokolja}
+%
+% definicija, opomba, primer, zgled, lema, trditev, izrek, posledica, dokaz
+
+% za številske množice uporabite naslednje simbole
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+% Lahko se zgodi, da je ukaz \C definiral že paket hyperref,
+% zato dobite napako: Command \C already defined.
+% V tem primeru namesto ukaza \newcommand uporabite \renewcommand
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+%\newcommand{\det}{\mathrm{det}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ZAČETEK VSEBINE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\section{Uvod}
+
+Na začetku prvega poglavja/razdelka (ali v samostojnem razdelku z naslovom
+Uvod) napišite kratek zgodovinski in matematični uvod. Pojasnite motivacijo za
+problem, kje nastopa, kje vse je bil obravnavan. Na koncu opišite tudi
+organizacijo dela -- kaj je v kakšnem razdelku.
+
+Če se uvod naravno nadaljuje v besedilo prvega poglavja, lahko nadaljujete z
+besedilom v istem razdelku, sicer začnete novega. Na začetku vsakega
+razdelka/podraz\-delka poveste, čemu se bomo posvetili v nadaljevanju. Pri
+pisanju uporabljajte ukaze za matematična okolja, med formalnimi enotami
+dodajte vezno razlagalno besedilo.
+
+\section{Matrike in determinante}
+\begin{definicija} Realna ${2\times 2}$ matrika $M$  je ${2\times 2}$ shema realnih števil
+$$M=
+     \begin{bmatrix}
+         a&b\\
+         c&d
+      \end{bmatrix}.
+$$
+Množico vseh realnih ${2\times 2}$ matrik označimo z $\R^{2\times 2}$
+${2\times 2}$ matrike lahko med sabo seštevamo in množimo ter jih množimo s skalarjem po naslednjih pravilih:
+Naj bosta         
+$$A=
+     \begin{bmatrix}
+         a&b\\
+         c&d
+      \end{bmatrix},  \quad
+  B=
+     \begin{bmatrix}
+         e&f\\
+         g&h      \end{bmatrix} \mbox{ in } \quad r\in \R.
+$$
+Potem je 
+$$
+A + B = \begin{bmatrix}
+         a+e&b+f\\
+         c+g&d+h
+      \end{bmatrix}, \quad 
+rA= \begin{bmatrix}
+         ra&rb\\
+         rc&rd
+      \end{bmatrix} \quad \mbox{ in } \quad
+AB=  \begin{bmatrix}
+         ae+bg&af+bh\\
+         ce+dg&cf+dh
+      \end{bmatrix}.
+$$
+Na matrikah definiramo tudi operacijo transponiranje:
+ $$A^{T}=
+     \begin{bmatrix}
+         a&c\\
+         b&d
+      \end{bmatrix}. 
+$$ 
+\end{definicija}
+Opomnimo, da množenje matrik ni komutativno. Nalednje trditve opisujejo lastnosti seštevanja, množenja in transponiranja matrik.
+
+\begin {trditev}
+Velja naslednje:
+\begin{enumerate}
+\item[1.] Komutativnost seštevanja: $A+B=B+A$,
+\item[2.] Distributivnost: $A(B+C)= AB +AC$ in $(A+B)C=AC+BC$,
+\item[3.] Asociativnost množenja: $A(BC)=(AB)C$ in
+\item[4.] $(AB)^{T}=  B^T A^T$.
+\end{enumerate}
+\end{trditev}
+
+\begin{trditev}
+Realne $2 \times 2 $ matrike so grupa za seštevanje. Nevtralni element je ničelna matrika 
+$$0=
+     \begin{bmatrix}
+         0&0\\
+         0&0
+      \end{bmatrix}, 
+$$
+naprotna matrika matriki $A$ pa je matrika $-A$.
+\end{trditev}
+
+\begin{definicija}
+Matrka $I$ je nevtralni element za množenje ali enota za množenje je, imenujemo jo {\em identiteta} in je enaka
+$$ I=
+     \begin{bmatrix}
+         1&0\\
+         0&1
+      \end{bmatrix}.
+$$
+
+{\em Diagonalna matrika} $D$ ima neničlne elemente samo na glavni diagonalni.
+$$ D=
+     \begin{bmatrix}
+         d_1&0\\
+         0&d_2
+      \end{bmatrix}.
+$$
+
+Matrika $A$ je {\em obrnljiva}, če obstaja taka matrika $X$, da je $AX=XA=I$. Matriko $X$ imenujemo {\em inverzna} matrika matrike $A$.
+\end{definicija}
+
+\begin{trditev} Obrnljive matrike so grupa za množenje, kjer je matrika $I$ identiteta, inverzni element elementa pa je njegova inevrzna matrika.
+\end{trditev}
+
+%\begin{trditev} Za matriko $A$ in njeno inverzno matriko $X$ velja:
+%$$
+%X= \frac{1}{\det A} 
+%\begin{bmatrix}
+ %        d&-b\\
+  %       -c&a
+    %  \end{bmatrix}.
+%$$
+%\end{trditev}
+
+%\begin{dokaz} To lahko računsko dokažem:
+%\end{dokaz}
+
+\begin{definicija} Naj bo        
+$$A=
+     \begin{bmatrix}
+         a&b\\
+         c&d
+      \end{bmatrix}.
+$$
+{\em Determinanta} matrike $A$ je definirana kot $$\det A =ad - bc.$$
+\end{definicija}
+
+\begin{trditev}\label{trditev o determinantah} Naj bosta $A, B \in \R^{2\times 2}$. Potem velja $$\det(AB)= \det(A)\det(B) \mbox{ in } \det(A)^T=\det(A).$$
+\end{trditev}
+
+\begin{dokaz} To lahko računsko dokažem. Naj bosta
+$$A=
+     \begin{bmatrix}
+         a&b\\
+         c&d
+      \end{bmatrix},  \quad
+  B=
+     \begin{bmatrix}
+         e&f\\
+         g&h      \end{bmatrix} \mbox{ in } \quad r\in \R.
+$$
+Dokazujemo, da  velja $\det(AB)=\det(A)\det(B).$
+\begin{eqnarray*}
+&&\det \begin{bmatrix}
+         ae+bg&af+bh\\
+         ce+dg&cf+dh
+      \end{bmatrix} =
+\det 
+     \begin{bmatrix}
+         a&b\\
+         c&d
+      \end{bmatrix}
+  \det
+     \begin{bmatrix}
+         e&f\\
+         g&h      
+	\end{bmatrix}\\
+&&(ae+bg)(cf+dh)-(af+bh)(ce+dg)= (ad-bc)(eh-fg)\\
+&&acef+adeh+bcfg+bdgh-acef-adfg-bceh-bdgh = \\
+&& \phantom{hancka}= adeh-adfg-bceh+bcfg \\
+&&acef-acef+adeh+bcfg+bdgh-bdgh -adfg-bceh =\\
+&&\phantom{hancka}=adeh+bcfg -adfg-bceh\\
+&&adeh+bcfg-adfg-bceh=adeh+bcfg-adfg-bceh.
+\end{eqnarray*}
+\end{dokaz}
+
+\begin{trditev} Naj bo $A \in \R^{2\times 2}$. Matrika $A$ obrnjljiva natanko tedaj, ko je  $\det A \ne  0$.
+\end{trditev}
+
+\begin{dokaz} Naj bo $A$ obrnljiva in $X$ njena inverzna matrika. Po trditvi \ref{trditev o determinantah} $AX=I$, torej je tudi $\det (AX)= \det A \det X =\det I= 1$, kar pomeni, da je $\det A$ različna od $0.$ Dokažimo še obratno. Če je $\det A \ne  0$, je inverzna matrika dana s formulo 
+$$X=A^{-1}=\frac{1}{\det A} 
+     \begin{bmatrix}
+         d&-b\\
+         -c&a
+      \end{bmatrix}.
+$$
+\end{dokaz}
+
+\begin{opomba} Če je $A$ celoštevilska matrika z determinanto $1$ ali $-1$ je tudi inverzna matrika celoštevilska.
+\end{opomba}
+
+\section{Linearne preslikave v $\R^2$ in matrike}
+
+\begin{definicija}Z $\R^2$ označimo množico vseh vektorjev v ravnini, 
+\[
+\R^2=\left\{ \begin{bmatrix}
+         a\\
+         b
+      \end{bmatrix}, a,b \in \R^2\right\}.
+\]
+\end{definicija}
+
+\begin{definicija}
+Preslikava $\mathcal{A}: \R^2\rightarrow\R^2$ je {\em linearna}, če za vsaka dva vektorja $\vec{v}_1, \vec{v}_2 \in \R^2$ in za vsaki realni števili $\lambda_1, \lambda_2$ velja 
+\[
+\mathcal{A}(\lambda_1\vec{v}_1+\lambda_2 \vec{v}_2)=\lambda_1\mathcal{A}(\vec{v}_1)+\lambda_2\mathcal{A}(\vec{v}_2).
+\]
+Zapisu $\lambda_1\vec{v}_1+\lambda_2 \vec{v}_2$ pravimo {linearna kombinacija}.
+\end{definicija}
+
+\begin{definicija} Množica $\{\vec{v}_1, \vec{v}_2 \}$ je {\em baza}, če lahko vsak vektor $\vec{v} \in \R^2$ na en sam način zapišemo kot \[
+\vec{v}=\lambda_1\vec{v}_1+\lambda_2 \vec{v}_2.
+\]
+\end {definicija}
+
+\begin{trditev} Množica $\{\vec{v}_1, \vec{v}_2 \}$ je baza natanko tedaj ko sta  $\vec{v}_1, \vec{v}_2 $  nevzporedna. (dokaži!!)
+\end{trditev}
+
+\begin{definicija} Množica 
+$$\left\{ \vec e_1=\begin{bmatrix}
+         1\\
+         0
+      \end{bmatrix},
+\vec e_2=\begin{bmatrix}
+         0\\
+         1
+      \end{bmatrix}\right\}
+$$
+ je {\em standardna baza}.
+\end {definicija}
+
+\begin{trditev}Vektorja 
+$$\vec{v}_1=
+ \begin{bmatrix}
+         a\\
+         b
+      \end{bmatrix},
+ \vec{v}_2 = \begin{bmatrix}
+         c\\
+         d
+      \end{bmatrix},$$ 
+sta nevzporedna natanko tedaj, ko 
+ $$\det \begin{bmatrix}
+         a&b\\
+         c&d
+      \end{bmatrix}\ne 0.$$ 
+\end{trditev}
+%dokaži sama
+
+\begin{trditev}Linearna preslikava je enolično določena s slikama dveh nevzporednih vektorjev.
+\end{trditev}
+%dokaži sama samcata
+
+Poglejmo kako lahko linearno preslikavo $\mathcal A$ zapišemo v bazi  $\{\vec{v}_1, \vec{v}_2 \}$. Če je 
+\begin{equation}\label{enačba o preslikavi A}
+\vec v =x_1 \vec{v}_1 + x_2\vec{v}_2, \quad \mathcal A(\vec v_1)=a\vec{v}_1+ c \vec{v}_2\, \mbox{  in  }\,
+\mathcal A(\vec v_2)=b\vec{v}_1+ d \vec{v}_2 ,
+\end{equation}
+potem je 
+\begin{eqnarray*}
+\mathcal A (\vec v)&=& x_1\mathcal A(\vec v_1) + x_2 \mathcal A(\vec v_2)\\
+			&=& x_1(a\vec{v}_1+ c \vec{v}_2) + x_2(b\vec{v}_1+ d \vec{v}_2) \\
+			&=& \vec{v}_1(x_1a+x_2b) + \vec{v}_2 (x_1c+x_2d)\\
+			&=& y_1 \vec{v}_1 + y_2 \vec{v}_2.
+\end{eqnarray*}
+Dogovorimo se, da bomo vsak vektor $\vec v= x_1 \vec{v}_1 + x_2\vec{v}_2$ identificirali z vektorjem komponent v baznih smereh. Zato je
+  $$\vec v_1 \simeq \begin{bmatrix}
+         1\\
+         0
+      \end{bmatrix}, \, 
+\vec v_2 \simeq \begin{bmatrix}
+         0\\
+         1
+      \end{bmatrix},\, 
+\vec v \simeq \begin{bmatrix}
+         x_1\\
+         x_2
+      \end{bmatrix},
+\mathcal A(\vec v) \simeq \begin{bmatrix}
+         y_1\\
+         y_2
+      \end{bmatrix}, 
+$$
+%
+Če sedaj linearni preslikavi $\mathcal A$ priredimo matriko 
+$$A=
+     \begin{bmatrix}
+         a&b\\
+         c&d
+      \end{bmatrix}, $$
+dobimo zvezo 
+$$\begin{bmatrix}
+         y_1\\
+         y_2
+      \end{bmatrix} =
+ \begin{bmatrix}
+         a&b\\
+         c&d
+      \end{bmatrix} 
+ \begin{bmatrix}
+         x_1\\
+         x_2
+      \end{bmatrix}.
+$$
+Linearni preslikavi $\mathcal A$ v bazi $\{\vec v_1,\vec v_2\}$ pripada matrika $A$. V drugih bazah isti linearni preslikavi pripada drugačna matrika.
+
+\begin{trditev}Če imamo linearno preslikavo $\mathcal A$, ki ji v bazi $\{\vec v_1,\vec v_2\}$ pripada matrika $A$ in linearno preslikavo $\mathcal B$, ki ji v bazi $\{\vec v_1,\vec v_2\}$ pripada matrika $B$, potem preslikavi  $\mathcal A \circ \mathcal B$ v isti bazi pripada matrika $AB$.
+%dokaži sama
+\end{trditev}
+
+\begin{trditev} Izberimo bazo $\{\vec v_1,\vec v_2\}$ in naj linearni preslikavi $\mathcal A$ pripada matrika $A$, potem linearna preslikava $\mathcal A$ ohranja ploščino natanko tedaj, ko je $\det A = \pm 1$.
+%dokaži sama  
+\end{trditev}
+
+\section{Lastne vrednosti in lastni vektorji}
+Edine matrike, ki jih lahko enostvano množimo so diagonalne matrike. Diagonalna matrika:
+$$
+  A=\begin{bmatrix}
+         a&0\\
+         0&b
+      \end{bmatrix}, 
+  B=\begin{bmatrix}
+         c&0\\
+         0&d
+      \end{bmatrix}, 
+AB=  \begin{bmatrix}
+         ac&0\\
+         0&bd
+      \end{bmatrix}.
+$$
+Če želimo izračunati večkratni kompozitum linearne preslikave $\mathcal A$ s samo sabo, je zato smiselno zapisati linearno preslikavo v taki bazi, da ji bo pripadala diagonalna matrika (če je to mogoče). 	Denimo da baza $\{\vec v_1, \vec v_2\}$ je taka baza in pripadajoča diagonalna matrika enaka 
+$$ D=
+     \begin{bmatrix}
+         \lambda_1&0\\
+         0&\lambda_2
+      \end{bmatrix}.
+$$
+To pomeni, da mora veljati $\mathcal A(\vec v_1)= \lambda \vec v_1$ in $\mathcal A(\vec v_2)= \lambda \vec v_2.$ Poglejmo kdaj je enačba $\mathcal A(\vec v) = \lambda \vec v$ rešljiva.
+Naj linearni preslikavi $\mathcal A$ v standradni bazi pripada matrika
+$$ A=\begin{bmatrix}
+         a&b\\
+         c&d
+      \end{bmatrix}$$
+%
+Naj bo vektor $\vec v$ enak
+$$\vec v \simeq \begin{bmatrix}
+         x_1\\
+         x_2
+      \end{bmatrix}
+$$
+Potem se enačba po komponentah prepiše kot
+\begin{eqnarray*}
+&&y_1= \mathcal A(x_1)=\lambda x_1, \quad y_2= \mathcal A(x_2)=\lambda x_2\\
+&&y_1 = ax_1+bx_2 = \lambda x_1, \quad y_2 = cx_1+dx_2 = \lambda x_2\\
+&&x_1(a-\lambda)+bx_2 =0, \quad cx_1+x_2(d - \lambda)=0
+\end{eqnarray*}
+Ko uredimo sistem, dobimo
+\[x_1((a-\lambda)(d-\lambda)-bc)=0, \quad
+x_2((a-\lambda)(d-\lambda)-bc)=0
+\]
+Če je $P(\lambda):=((a-\lambda)(d-\lambda)-bc) \ne 0$ sta $x_1,x_2=0$ in $\vec v$ ni bazni vektor, zato mora biti $P(\lambda)=0$.
+Iz tega sledi, da:
+$$
+P(\lambda)=\lambda^2-(a+d)\lambda +ad -bc=0,  \quad
+\lambda_{1,2}= \frac{a+d \pm \sqrt{(a+d)^2-4(ad-bc)}}{2}.
+$$
+Opazimo, da 
+$$
+\lambda_1+\lambda_2= a+d, \, \lambda_1\lambda_2= ad-bc=\det A \mbox{ in } P(\lambda)=\det(A-\lambda I).
+$$
+%
+\begin{definicija} Naj bo $\mathcal A$ linearna preslikava. Neničelni vektor ${\vec v}$ je {\em lastni vektor} ${\mathcal A}$ če obstaja tako realno število $\lambda$, imenovano {\em lastna vrednost}, da velja 
+$$
+\mathcal A(\vec v)= \lambda \vec v.
+$$
+Par $(\lambda, \vec v)$ imenujemo {\em lastni par}, polinom $P(\lambda)= \det( A -\lambda I) $  pa {\em karakteristični polinom.}
+\end{definicija}
+%
+Latni vrednosti sta ničli karakterističnega polinoma. Nas bodo zanimale linearne preslikave, ki ohranjajo ploščino in nimajo lastnih vrednosti z absolutno vrednostjo $1$.
+
+\begin{definicija} {\em Hiperbolična linearna preslikava} je preslikava, ki ohranja plošino in  ima lastni vrednosti, ki ne ležita na enotski krožnici v kompleksni ravnini.
+\end{definicija}
+
+\begin{trditev} Hiperbolična linearna preslikava nima kompleksno konjugiranih lastnih vrednosti in ima dve realni lastni vrednosti $\lambda_1, \lambda_2$ s tem da je 
+$$
+0<|\lambda_1|<1 <|\lambda_2|.
+$$
+\end{trditev}
+
+
+
+
+
+
+
+\end{document}
+
+
+Podrobneje si poglejmo naslednji rezultat. Ker se bomo kasneje nanj sklicevali,
+si pripravimo oznako z ukazom \verb|\label{oznaka}|. Seveda morajo biti oznake
+različnih trditev različne. Enako označujemo tudi druga okolja oziroma enote
+besedila.
+
+\begin{izrek}\label{izr:enakomerno}
+Zvezna funkcija na zaprtem intervalu je enakomerno zvezna.
+\end{izrek}
+
+\begin{dokaz}
+Na začetku dokaza, če je to le mogoče in smiselno, razložite idejo dokaza.
+
+Dokazovali bomo s protislovjem. Pomagali si bomo z definicijo zveznosti in s
+kompaktnostjo intervala.  Izberimo $\varepsilon>0$. Če $f$ ni enakomerno
+zvezna, potem za vsak $\delta>0$ obstajata $x, y$, ki zadoščata
+\begin{equation}\label{eq:razlika}
+  |x-y|<\delta\quad \text{in}\quad |f(x)-f(y)| \ge \varepsilon. \qedhere
+\end{equation}
+\end{dokaz}
+
+V zgornjem primeru smo kvadratek za konec dokaza postavili v zadnjo vrstico
+besedila, ki je vrstična formula, s pomočjo ukaza \verb|\qedhere|.  Ta ukaz
+ustrezno deluje znotraj okolij \emph{equation, align*} in podobnih, ne pa
+znotraj \verb|$$ ... $$|.
+
+Oglejmo si še enkrat neenačbi~\eqref{eq:razlika}. Na formule se sklicujemo z
+ukazom \verb|\eqref{oznaka}|, ki postavi zaporedno številko enačbe
+v oklepaje, na trditve in ostale enote pa z ukazom \verb|\ref{oznaka}|. Črni
+pravokotnik ob robu strani označuje predolgo vrstico, kjer \LaTeX ni uspel
+pravilno postaviti besedila, zato mu morate pomagati, npr.\ tako, da stavek
+nekoliko preoblikujete, sami razdelite nedeljivo enoto (npr. razdelite
+matematično formulo na dva dela) ali pa ponudite možnosti za deljenje težavne
+besede s pomočjo znakov\verb|\-|, ki jih postavite na mesto, kjer se besedo sme
+deliti, npr.\  \verb|te\-žav\-nost\-ni\-ca|. Zgoraj bi tako lahko zapisali:
+
+Oglejmo si še enkrat neenačbi~\eqref{eq:razlika}. Za sklicevanje na označene
+enote besedila imamo na razpolago dva ukaza; na formule se sklicujemo z ukazom
+\verb|\eqref{oznaka}|, \dots
+
+V predzadnjem odstavku je v oklepaju za okrajšavo npr.\ nastal predolg
+presledek sredi stavka, saj je \LaTeX zaradi pike sklepal, da je na tem mestu
+stavka konec. Tak predolg presledek preprečimo tako, da za piko sredi stavka
+postavimo poševnico in za njo presledek, torej \verb|\ |.\\
+
+Če dokaz trditve ne sledi neposredno formulaciji trditve, moramo povedati, kaj
+bomo dokazovali. To naredimo tako, da ob ukazu za okolje dokaz dodamo neobvezni
+parameter,  v katerem napišemo besedilo, ki se bo izpisalo namesto besede
+\emph{Dokaz}, npr.\ \verb|\begin{Dokaz}[Dokaz izreka \ref{izr:enakomerno}]|.
+
+\begin{dokaz}[Dokaz izreka \ref{izr:enakomerno}]
+  Dokazovanja te trditve se lahko lotimo tudi takole \ldots
+\end{dokaz}
+
+\subsection{Naslov morebitnega (pod)razdelka} Besedilo naj se nadaljuje v vrstici naslova, torej za ukazom \verb|\subsection{}| ne smete izpustiti prazne vrstice.
+
+Podobno kot lahko spremenimo ime dokaza, lahko dodamo komentar v ime trditve,
+torej s pomočjo neobveznega parametra; prvega od spodnjih izpisov dosežemo z
+ukazom \verb|\begin{posledica}[izrek o vmesni vrednosti]|. Če želimo v
+parametru navesti vir, pri katerem bomo navedli podatek o tem, kje v viru to
+trditev najdemo, pa uporabimo ukaz
+\verb|\begin{posledica}[\protect{\cite[izrek 3.14]{glob}}]|. Seveda lahko obe
+možnosti kombiniramo.
+
+
+\begin{posledica}[izrek o vmesni vrednosti]
+  Naj bo $f$ zvezna in \ldots
+\end{posledica}
+
+Ali pa
+
+\begin{posledica}[izrek o vmesni vrednosti \protect{\cite[izrek 3.14]{glob}}]
+  Naj bo $f$ zvezna in \ldots
+\end{posledica}
+
+Podobno lahko napovemo tudi vsebino primera.
+
+\begin{primer}[nezvezna funkcija nima nujno lastnosti povprečne vrednosti]
+  Naj bo $f \colon \R \to \R$ dana s predpisom \dots
+\end{primer}
+
+\subsection{Pisanje algoritmov}
+Za pisanje algoritmov sta na voljo okolji \texttt{algorithm} in
+\texttt{algorithmic} iz paketov \texttt{algorithm} in \texttt{algorithmix}, ki
+sodelujeta podobno kot \texttt{table} in \texttt{tabular}. Algoritmi plavajo
+med tekstom, enako kot slike in tabele, nanje se lahko tudi sklicujemo, kot
+prikazano v izvorni kodi in v algoritmu~\ref{alg:metoda}. Sklicujemo se lahko
+tudi na pomembne vrstice, npr.\ na vrstico~\ref{alg:pomembna-vrstica}, ki
+predstavlja glavni del algoritma. Za primer pisanja algoritma se posvetujte s
+primerom v tem dokumentu, za bolj napredne primere uporabe, kot na primer
+razbijanje algoritma na več kosov, pa z (precej razumljivo) uradno
+dokumentacijo\footnote{\url{http://tug.ctan.org/macros/latex/contrib/algorithmicx/algorithmicx.pdf}}.
+Če želite vključiti izvorno kodo nekega programa, priporočamo paket
+\texttt{minted}\footnote{\url{https://github.com/gpoore/minted}}.
+
+\algnewcommand\algorithmicto{\textbf{to}}
+\algnewcommand\algorithmicin{\textbf{in}}
+\algnewcommand\algorithmicforeach{\textbf{for each}}
+\algrenewtext{For}[3]{\algorithmicfor\ #1 $\gets$ #2\ \algorithmicto\ #3\ \algorithmicdo}
+\algdef{S}[FOR]{ForEach}[2]{\algorithmicforeach\ #1\ \algorithmicin\ #2\ \algorithmicdo}
+
+\begin{algorithm}[ht]
+  \caption{Opis, ki ima enako funkcionalnost kot opis pod sliko.}
+  \label{alg:metoda}
+  \raggedright
+  \textbf{Vhod:} Števili $n, m \in \N, n > m$. \\
+  \textbf{Izhod:} Decimalno število $x$, ki aproksimira rešitev enačbe $n x = m$.
+  \begin{algorithmic}[1]
+    \Function{reši}{$n$, $m$} \Comment{Vsi vhodni parametri morajo biti opisani.}
+    \State $a \gets [\,]$ \Comment{Spremenljivka $a$ naj postane prazna kopica.}
+    \For{$i$}{$1$}{$n$}
+      \If{$i \operatorname{mod} 7 = 5$}
+        \State \Call{heapop}{$a$}
+      \ElsIf{$i < 5$}
+      \State \Call{heappush}{$a, \frac{i+12}{7} + \pi$} \Comment{Lahko uporabljamo matematiko.}
+      \Else
+        \State \Call{heappush}{$a, i$}
+      \EndIf
+    \EndFor
+    \Statex  \Comment{Prazna vrstica}
+    \State $x \gets 0$  \Comment{To je primer komentarja.}
+    \ForEach{e}{a}
+      \State $x \gets 1 + \sqrt[e]{x}$
+    \EndFor
+    \While{$|x| > \varepsilon$}
+      \State $x \gets x / 2$
+    \EndWhile
+    \State $x \gets m / n$ \label{alg:pomembna-vrstica}
+    \State \Return $x$  \Comment{Vsi izhodni parametri morajo biti opisani nad algoritmom.}
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\subsection{Stavljenje slik}
+
+Če je slika samo ena, jo vstavimo z ukazi (pobrisati \verb|\verb{...} | iz kode)
+
+\verb|\begin{figure}[h]|
+
+\verb|\includegraphics[width=0.4\textwidth]{TAnn.pdf}|
+
+\verb|\caption{Symmetric tiling for the annulus $\cl(A(0;1,3))$ with $c_0 = 1,c_1 =2$ and $c_2 = 3.$}\label{TFE}|
+
+\verb|\end{figure}|
+
+Label pove, da se bo v spremenljivko TFE skhranila številka slike. Do te številke pridemo z ukazom \verb|\ref|.
+
+Slike v tabeli. Tri slike, Tiling.pdf, LadyBug1.pdf in LadyBugTiled1.pdf so v tabeli slik, prav tako nihove oznake (a),(b),(c). Spodaj je opis slik - vidno v kodi.
+%\begin{figure}[h]
+% \centering
+% $\begin{array}{ccccc}
+%  {\includegraphics[width=0.3\textwidth]{IntTiling.pdf}}&
+%  {\includegraphics[width=0.3\textwidth]{LadyBug1.pdf}}&
+%  {\includegraphics[width=0.3\textwidth]{LadyBugTiled1.pdf}} \\
+%  (a)&(b)&(c)
+% \end{array}$
+%  \caption{(a) the set $B \cap K_{n+1, \nu}$, (b) the set $K_{n}\cap B$  (blue), already tiled, with a hole $D$ (light blue centered in the origin) that intersects the real axis and with a pair of symmetric holes (light blue), filled components of $K_n$ (dark blue), domain to be tiled (light blue) and holes of $K_{n+1}$ (white), (c) the symmetric tiling of the symmetric necklace.}\label{case2b}
+%\end{figure}
+
+
+\section{Konec dela}
+
+Na konec dela sodita angleško-slovenski slovarček strokovnih izrazov in seznam
+uporabljene literature, morebitne priloge (programska koda, daljša ponovitev
+dela snovi, ki je bil obravnavan med študijem \dots) pa neposredno pred ti
+enoti. Slovar naj vsebuje vse pojme, ki ste jih spoznali ob pripravi dela, pa
+tudi že znane pojme, ki ste jih spoznali pri izbirnih predmetih. Najprej
+navedite angleški pojem (ti naj bodo urejeni po abecedi) in potem ustrezni
+slovenski prevod; zaželeno je, da temu sledi tudi opis pojma, lahko komentar
+ali pojasnilo. Slovarska gesla navajajte z ukazom \verb|\geslo{}{}|, npr.\
+\verb|\geslo{continuous}{zvezen}|.
+
+Pri navajanju literature si pomagajte s spodnjimi primeri; najprej je opisano
+pravilo za vsak tip vira, nato so podani primeri. Člen literature napišete z
+ukazom \verb|\bibitem{oznaka} podatki o viru|, kjer mora \emph{oznaka} enolično
+določati vir.  Posebej opozarjam, da spletni viri uporabljajo paket url, ki je
+vključen v~.cls datoteki. Polje ``ogled'' pri spletnih virih je obvezno; če je
+kak podatek neznan, ustrezno ``polje'' seveda izpustimo. Literaturo je potrebno
+urediti po abecednem vrstnem redu; najprej navedemo vse vire z znanimi avtorji
+(tiskane in spletne) po abecednem redu avtorjev (po priimkih, nato imenih),
+nato pa spletne vire brez avtorjev, urejene po naslovih strani. Če isti vir
+navajamo v dveh oblikah, kot tiskani in spletni vir, najprej navedemo tiskani
+vir, nato pa še podatek o tem, kje je dostopen v elektronski obliki.
+
+Citiramo z ukazom \verb|\cite{AB}|.
+
+Janez Novak je napisal knjigo \cite{AB}.
+
+\begin{thebibliography}{99}
+\bibitem[VIR]{AB} Janez Novak, {\em Ta veseli dan}, Ljubljana 1789
+\end{thebibliography}
+\end{document}
